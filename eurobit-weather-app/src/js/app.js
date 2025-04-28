@@ -16,6 +16,7 @@ document.getElementById("getWeather").addEventListener("click", async () => {
 
         forecasts.forEach((day, index) => {
             console.log(day); // Debug: Inspect the structure of each forecast object
+            console.log(day.weather); // Debug: Inspect the weather condition
 
             const card = document.createElement("div");
             card.className = "forecast-card";
@@ -31,10 +32,15 @@ document.getElementById("getWeather").addEventListener("click", async () => {
                 cloudy: "./assets/weather-icons/cloudy.png",
                 cloudyday: "./assets/weather-icons/cloudyday.png",
                 cloudynight: "./assets/weather-icons/cloudynight.png",
-                rain: "./assets/weather-icons/rain.png",
+                lightrain: "./assets/weather-icons/lightrain.png",
+                lightrainnight: "./assets/weather-icons/lightrainnight.png",
+                lightrainday: "./assets/weather-icons/lightrainday.png",
                 snow: "./assets/weather-icons/snow.png",
                 fog: "./assets/weather-icons/fog.png",
                 thunderstorm: "./assets/weather-icons/thunderstorm.png",
+                oshowerday: "./assets/weather-icons/oshowerday.png",
+                oshowernight: "./assets/weather-icons/oshowernight.png",
+                humidnight: "./assets/weather-icons/humidnight.png",
                 default: "./assets/weather-icons/default.png",
             };
 
