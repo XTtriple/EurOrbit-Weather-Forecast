@@ -12,10 +12,46 @@ document.getElementById("getWeather").addEventListener("click", async () => {
         const data = await response.json();
         console.log(data); // Debug: Inspect the API response structure
 
-        const forecasts = data.dataseries.slice(0, 7); // Get 7-day forecast
+        const forecasts = data.dataseries.slice(0, 14); // Get 14-day forecast
+
+        const weatherIcons = {
+            clearday: "./assets/weather-icons/clearday.png",
+            clearnight: "./assets/weather-icons/Clearnight.png",
+            "Cloudy Day": "./assets/weather-icons/cloudyday.png",
+            cloudyday: "./assets/weather-icons/cloudyday.png",
+            Cloudy: "./assets/weather-icons/partly-cloudy.png", // Unified for day and night
+            "Cloudy Night": "./assets/weather-icons/cloudynight.png",
+            "Light Rain": "./assets/weather-icons/rain.png", // Unified for day and night
+            snow: "./assets/weather-icons/Snow.png",
+            fog: "./assets/weather-icons/fog.png",
+            Thunderstorm: "./assets/weather-icons/Thunderstorm.png",
+            Showers: "./assets/weather-icons/heavyrain.png", // Unified for day and night
+            humidnight: "./assets/weather-icons/humid-night.png",
+            default: "./assets/weather-icons/default.png",
+        };
+
+        // Normalize weather conditions
+        const normalizeWeatherCondition = (condition) => {
+            const normalizedConditions = {
+                lightrainday: "Light Rain",
+                lightrainnight: "Light Rain",
+                mcloudyday: "Cloudy Day",
+                mcloudynight: "Cloudy Night",
+                oshowerday: "Showers",
+                oshowernight: "Showers",
+                ishowerday: "Showers",
+                ishowernight: "Showers",
+                pcloudynight: "Cloudy Night",
+                "Clear night": "Clear Night",
+                cloudyday: "Cloudy Day",
+                pcloudyday: "Cloudy Day",
+                cloudynight: "Cloudy Night",
+                tsday: "Thunderstorm",
+            };
+            return normalizedConditions[condition] || condition; // Default to the original condition if no match
+        };
 
         forecasts.forEach((day, index) => {
-            console.log(day); // Debug: Inspect the structure of each forecast object
             console.log(day.weather); // Debug: Inspect the weather condition
 
             const card = document.createElement("div");
@@ -27,29 +63,12 @@ document.getElementById("getWeather").addEventListener("click", async () => {
             forecastDate.setDate(today.getDate() + index);
             const dayName = forecastDate.toLocaleDateString("en-US", { weekday: "short" });
 
-            const weatherIcons = {
-                clearday: "./assets/weather-icons/clear.png",
-                cloudyday: "./assets/weather-icons/cloudy.png",
-                mcloudyday: "./assets/weather-icons/cloudyday.png",
-                pcloudynight: "./assets/weather-icons/cloudynight.png",
-                lightrain: "./assets/weather-icons/lightrain.png",
-                lightrainnight: "./assets/weather-icons/lightrainnight.png",
-                lightrainday: "./assets/weather-icons/lightrainday.png",
-                snow: "./assets/weather-icons/snow.png",
-                fog: "./assets/weather-icons/fog.png",
-                thunderstorm: "./assets/weather-icons/thunderstorm.png",
-                oshowerday: "./assets/weather-icons/oshowerday.png",
-                oshowernight: "./assets/weather-icons/oshowernight.png",
-                humidnight: "./assets/weather-icons/humidnight.png",
-                default: "./assets/weather-icons/default.png",
-            };
+            // Normalize the weather condition
+            const weatherCondition = normalizeWeatherCondition(day.weather);
+            const weatherIconPath = weatherIcons[weatherCondition] || weatherIcons.default;
 
             // Get temperature data
             const temperature = day.temp2m || "N/A";
-
-            // Get the weather condition and corresponding icon
-            const weatherCondition = day.weather;
-            const weatherIconPath = weatherIcons[weatherCondition] || weatherIcons.default;
 
             card.innerHTML = `
                 <h3>${dayName}</h3>
