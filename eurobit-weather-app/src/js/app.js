@@ -28,10 +28,10 @@ document.getElementById("getWeather").addEventListener("click", async () => {
             const dayName = forecastDate.toLocaleDateString("en-US", { weekday: "short" });
 
             const weatherIcons = {
-                clear: "./assets/weather-icons/clear.png",
-                cloudy: "./assets/weather-icons/cloudy.png",
-                cloudyday: "./assets/weather-icons/cloudyday.png",
-                cloudynight: "./assets/weather-icons/cloudynight.png",
+                clearday: "./assets/weather-icons/clear.png",
+                cloudyday: "./assets/weather-icons/cloudy.png",
+                mcloudyday: "./assets/weather-icons/cloudyday.png",
+                pcloudynight: "./assets/weather-icons/cloudynight.png",
                 lightrain: "./assets/weather-icons/lightrain.png",
                 lightrainnight: "./assets/weather-icons/lightrainnight.png",
                 lightrainday: "./assets/weather-icons/lightrainday.png",
